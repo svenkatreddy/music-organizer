@@ -11,9 +11,9 @@ function mergeMeta(primary, fallback) {
   );
 }
 
-async function fetchFromProviders(query, options) {
+async function fetchFromProviders({ artist, title, original }, options) {
   try {
-    const mb = await fetchFromMusicBrainz(query);
+    const mb = await fetchFromMusicBrainz({ artist, title, original });
     if (mb && mb.title && mb.artist) return mb;
   } catch {}
 

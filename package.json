@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
+    "debug": "^4.4.1",
     "fs-extra": "^11.2.0",
     "music-metadata": "^11.2.1",
     "musicbrainz-api": "^0.25.0",
