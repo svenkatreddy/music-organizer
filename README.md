@@ -1,6 +1,9 @@
 # Music Organizer CLI
 
-Organize your `.mp3` and `.flac` files into folders using metadata from MusicBrainz, Spotify, and Last.fm.
+Organize your `.mp3` and `.flac` files into folders using metadata from file tags, then fallback to metadata from MusicBrainz based on file name, Spotify, and Last.fm.
+
+# Suggested file names
+filename: `Artist - Track`
 
 ## Features
 
