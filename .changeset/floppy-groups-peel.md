@@ -1,5 +1,5 @@
 ---
-"music-organizer": minor
+"@svenkatreddy/music-organizer": minor
 ---
 
 Initial release
