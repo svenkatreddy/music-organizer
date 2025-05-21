@@ -35,7 +35,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Push version bump and changelog
+      - name: Push version bump and changelog, tags
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
@@ -45,3 +45,6 @@ jobs:
           git add .
           git commit -m "chore: release new version" || echo "No changes to commit"
           git push release-origin HEAD:main
+          VERSION=$(node -p "require('./package.json').version")
+          git tag "v$VERSION"
+          git push release-origin "v$VERSION"
