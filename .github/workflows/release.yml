@@ -8,36 +8,38 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: https://registry.npmjs.org
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      - name: Create version bump
+      - name: Create version bump with Changesets
         run: npx changeset version
 
-      - run: npm install
+      - name: Re-install after version bump
+        run: npm install
 
       - name: Publish to npm
         run: npx changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Commit version bump
+      - name: Push version bump and changelog
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "release-bot"
+          git config --global user.email "bot@release.com"
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
           git add .
-          git commit -m "chore: release new version"
-          git push
+          git commit -m "chore: release new version" || echo "No changes to commit"
+          git push origin main
