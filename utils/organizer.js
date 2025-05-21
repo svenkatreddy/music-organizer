@@ -1,12 +1,14 @@
-const fs = require('fs-extra');
-const axios = require('axios');
-const path = require('path');
-const mm = require('music-metadata');
-const NodeID3 = require('node-id3');
-const crypto = require('crypto');
-const pLimit = require('p-limit');
-const { fetchFromProviders } = require('./providers');
-const debug = require('debug')('music-organizer:organizer');
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+import fs from 'fs-extra';
+import axios from 'axios';
+import path from 'path';
+import * as mm from 'music-metadata';
+import NodeID3 from 'node-id3';
+import crypto from 'crypto';
+import pLimit from 'p-limit';
+import { fetchFromProviders } from './providers/index.js';
+const debug =  require('debug')('music-organizer:organizer');
 
 function parseFilename(filename) {
   const name = filename.replace(/\.[^/.]+$/, ''); // remove extension
@@ -51,7 +53,7 @@ async function getAllAudioFiles(dir) {
   return files;
 }
 
-async function organizeDirectory(inputDir, outputDir, options) {
+export async function organizeDirectory(inputDir, outputDir, options) {
   const trackingFile = path.join(inputDir, '.music-organizer-tracking.json');
   const tracking = fs.existsSync(trackingFile) ? await fs.readJson(trackingFile) : {};
   const files = await getAllAudioFiles(inputDir);
@@ -132,5 +134,3 @@ async function organizeDirectory(inputDir, outputDir, options) {
   await Promise.all(results);
   if (!options.dryRun) await fs.writeJson(trackingFile, tracking);
 }
-
-module.exports = { organizeDirectory, sanitize, applyFormat };

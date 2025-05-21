@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-const path = require('path');
-const yargs = require('yargs');
-const { hideBin } = require('yargs/helpers');
-const { organizeDirectory } = require('./utils/organizer');
+import path from 'path';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { organizeDirectory } from './utils/organizer.js';
 
 yargs(hideBin(process.argv))
   .command('organize <input> <output>', 'Organize music files', (yargs) => {

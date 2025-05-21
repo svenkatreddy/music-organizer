@@ -1,6 +1,6 @@
-const { fetchFromMusicBrainz } = require('./musicbrainz');
-const { fetchFromLastFM } = require('./lastfm');
-const { fetchFromSpotify } = require('./spotify');
+import { fetchFromMusicBrainz } from './musicbrainz.js';
+import { fetchFromLastFM } from './lastfm.js';
+import { fetchFromSpotify } from './spotify.js';
 
 function mergeMeta(primary, fallback) {
   return Object.fromEntries(
@@ -11,7 +11,7 @@ function mergeMeta(primary, fallback) {
   );
 }
 
-async function fetchFromProviders({ artist, title, original }, options) {
+export async function fetchFromProviders({ artist, title, original }, options) {
   try {
     const mb = await fetchFromMusicBrainz({ artist, title, original });
     if (mb && mb.title && mb.artist) return mb;
@@ -29,5 +29,3 @@ async function fetchFromProviders({ artist, title, original }, options) {
     return {};
   }
 }
-
-module.exports = { fetchFromProviders };

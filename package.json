@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "@svenkatreddy/music-organizer",
   "version": "0.0.0",
   "description": "Organize music using metadata from local files tag data and online services like MusicBrainz, Spotify, and Last.fm",

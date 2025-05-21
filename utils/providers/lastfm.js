@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-async function fetchFromLastFM(query, apiKey) {
+export async function fetchFromLastFM(query, apiKey) {
   try {
     const response = await axios.get('http://ws.audioscrobbler.com/2.0/', {
       params: {
@@ -27,5 +27,3 @@ async function fetchFromLastFM(query, apiKey) {
     return {};
   }
 }
-
-module.exports = { fetchFromLastFM };

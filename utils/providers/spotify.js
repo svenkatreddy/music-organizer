@@ -1,6 +1,8 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const SpotifyWebApi = require('spotify-web-api-node');
 
-async function fetchFromSpotify(query, clientId, clientSecret) {
+export async function fetchFromSpotify(query, clientId, clientSecret) {
   const spotify = new SpotifyWebApi({ clientId, clientSecret });
 
   try {
@@ -23,5 +25,3 @@ async function fetchFromSpotify(query, clientId, clientSecret) {
     return {};
   }
 }
-
-module.exports = { fetchFromSpotify };

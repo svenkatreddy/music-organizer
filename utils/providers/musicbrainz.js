@@ -1,6 +1,8 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const { MusicBrainzApi } = require('musicbrainz-api');
-const axios = require('axios');
-const debug = require('debug')('music-organizer:musicbrainz');
+import axios from 'axios';
+const debug =  require('debug')('music-organizer:musicbrainz');
 
 const mbApi = new MusicBrainzApi({
   appName: 'MusicOrganizerCLI',
@@ -8,7 +10,7 @@ const mbApi = new MusicBrainzApi({
   appContactInfo: 'email@example.com'
 });
 
-async function fetchFromMusicBrainz({ artist, title, original }) {
+export async function fetchFromMusicBrainz({ artist, title, original }) {
   try {
     const query = artist && title
       ? `recording:"${title}" AND artist:"${artist}"`
@@ -66,5 +68,3 @@ async function fetchFromMusicBrainz({ artist, title, original }) {
     throw err;
   }
 }
-
-module.exports = { fetchFromMusicBrainz };
